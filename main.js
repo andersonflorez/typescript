@@ -83,10 +83,9 @@ function getTitleBooksByCategory(filterCategory) {
     return titleBooks;
 }
 var titleBooks = getTitleBooksByCategory(Category.Biography);
-console.log("Libros que pertenecen a la categoria: " + Category.Biography + " - " + Category[Category.Biography]);
+//console.log(`Libros que pertenecen a la categoria: ${Category.Biography} - ${Category[Category.Biography]}`);
 for (var _i = 0, titleBooks_1 = titleBooks; _i < titleBooks_1.length; _i++) {
     var title = titleBooks_1[_i];
-    console.log(title);
 }
 titleBooks.forEach(function (value, index, array) { return console.log(value); });
 //forEach, map, filter
@@ -98,32 +97,57 @@ titleBooks.forEach(function (value, index, array) {
 var books = titleBooks.filter(function (title) {
     return title.indexOf('7') != -1;
 });
-console.log(books);
-//Conversiones de tipos de datos
-/*
-//de string a numero es con un + adelante
-let number1 : number = +'0';
-//Numero a String
-let varchar : string = number1.toString();
-//Numero a double
-let boolean1 : boolean = new Boolean(number1).valueOf();
-//Numero
-let number2 : number = new Number('52').valueOf();
-*/
-//multiples tipos de datos
-var mType;
-mType = 'hola';
-mType = 80;
-if (typeof mType == 'string') {
+//console.log(books);
+function createLibrerian(name, year, city) {
+    console.log("Nombre: " + name + " - ciudad: " + city);
+    if (year) {
+        console.log("A\u00F1o de nacimiento " + year);
+    }
 }
-else if (typeof mType == 'number') {
+function createUser(name, city, year) {
+    console.log("Nombre: " + name + " - ciudad: " + city);
+    if (year) {
+        console.log("A\u00F1o de nacimiento " + year);
+    }
 }
-//array
-var number1;
-var number2;
-//tuplas
-var tupla;
-tupla = ['anderson', 1];
-tupla[2] = 30;
-tupla[3] = 60;
-tupla[4] = 'stiven';
+function createAdmin(name, city, year) {
+    if (year === void 0) { year = 2000; }
+    console.log("Nombre: " + name + " - ciudad: " + city);
+    console.log("A\u00F1o de nacimiento " + year);
+}
+function fullName(name) {
+    var restName = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        restName[_i - 1] = arguments[_i];
+    }
+    return name + " " + restName.join(' ');
+}
+createLibrerian('Anderson', 1997, 'Medellin');
+createUser('Anderson', 'Medellin', 1997);
+createUser('Anderson', 'Medellin');
+var fullNameAdmin = fullName('Anderson', 'Florez', 'Ruiz');
+console.log(fullName);
+//function getTitlesBooks(parameter: string|boolean): string[]
+function getTitlesBooks(parameter) {
+    var titlesbooks = [];
+    var books = getBooks();
+    if (typeof parameter == 'string') {
+        books.map(function (book) {
+            if (book.author == parameter) {
+                titleBooks.push(book.title);
+            }
+        });
+    }
+    if (typeof parameter == 'boolean') {
+        books.map(function (book) {
+            if (book.available == parameter) {
+                titleBooks.push(book.title);
+            }
+        });
+    }
+    return titleBooks;
+}
+var myBooks = getTitlesBooks("los hermanos grimm");
+var myAvilableBooks = getTitlesBooks(true);
+console.log(myBooks);
+console.log(myAvilableBooks);

@@ -87,9 +87,9 @@ function getTitleBooksByCategory(filterCategory: Category) : Array<string>{
 
 
 let titleBooks = getTitleBooksByCategory(Category.Biography);
-console.log(`Libros que pertenecen a la categoria: ${Category.Biography} - ${Category[Category.Biography]}`);
+//console.log(`Libros que pertenecen a la categoria: ${Category.Biography} - ${Category[Category.Biography]}`);
 for (const title of titleBooks) {
-    console.log(title);
+    //console.log(title);
 }
 
 titleBooks.forEach((value,index,array)=>console.log(value));
@@ -104,41 +104,65 @@ titleBooks.forEach((value,index,array)=>{
 let books = titleBooks.filter((title) => {
     return title.indexOf('7')!=-1;
 });
-console.log(books);
-//Conversiones de tipos de datos
-/*
-//de string a numero es con un + adelante
-let number1 : number = +'0';
-//Numero a String
-let varchar : string = number1.toString();
-//Numero a double
-let boolean1 : boolean = new Boolean(number1).valueOf();
-//Numero
-let number2 : number = new Number('52').valueOf();
-*/
+//console.log(books);
 
 
-//multiples tipos de datos
+function createLibrerian(name:string,  year: number, city: string) : void {
+    console.log(`Nombre: ${name} - ciudad: ${city}`);
+    if(year){
+        console.log(`Año de nacimiento ${year}`);
+    }
+}
 
-let mType : string|number;
+function createUser(name:string, city: string, year?: number) : void {
+    console.log(`Nombre: ${name} - ciudad: ${city}`);
+    if(year){
+        console.log(`Año de nacimiento ${year}`);
+    }
+}
 
-mType = 'hola';
-mType = 80;
+function createAdmin(name:string, city: string, year: number = 2000) : void {
+    console.log(`Nombre: ${name} - ciudad: ${city}`);
+    console.log(`Año de nacimiento ${year}`);
+    
+}
 
-if(typeof mType == 'string'){
-} 
-else if(typeof mType == 'number'){
-} 
+function fullName(name:string, ...restName:string[]): string{
+    return `${name} ${restName.join(' ')}`;
+}
+createLibrerian('Anderson',1997,'Medellin');
+createUser('Anderson','Medellin',1997);
+createUser('Anderson','Medellin');
+let fullNameAdmin = fullName('Anderson', 'Florez', 'Ruiz');
+console.log(fullName);
 
-//array
-let number1 : number[];
-let number2 : Array<number>;
 
+function getTitlesBooks(author: string): string[];
+function getTitlesBooks(available: boolean): string[];
+//function getTitlesBooks(parameter: string|boolean): string[]
+function getTitlesBooks(parameter: any): string[]{
+    let titlesbooks : string[] = [];
+    let books = getBooks();
 
-//tuplas
-let tupla: [string, number];
+    if(typeof parameter == 'string'){
+        books.map((book) => {
+            if(book.author == parameter){
+                titleBooks.push(book.title);
+            }
+        });
+    }
+    if(typeof parameter == 'boolean'){
+        books.map((book) => {
+            if(book.available == parameter){
+                titleBooks.push(book.title);
+            }
+        });
+    }
+    return titleBooks;
+}
 
-tupla = ['anderson', 1 ];
-tupla[2] = 30;
-tupla[3] = 60;
-tupla[4] = 'stiven';
+let myBooks : string[] = getTitlesBooks("los hermanos grimm");
+let myAvilableBooks : string[] = getTitlesBooks(true);
+
+console.log(myBooks);
+console.log(myAvilableBooks);
